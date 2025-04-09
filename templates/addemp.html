@@ -1,39 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Add Employee Information</title>
+    <title>Add Employee Information</title>
 </head>
-<center>
-	<font color="black" size="4" style="font-family: avenir">
+<body style="background-image: url('{{ background_image }}'); background-size: cover; background-repeat: no-repeat; background-position: center;">
+    <center>
+        <h1 style="color: DodgerBlue">Employee Database</h1>
+        <h1>{{ group_name }}</h1>
+        <h3>{{ group_slogan }}</h3>
 
-		<h1 style="color: DodgerBlue">Employee Database</h1>
-		<body style="background-image: url('/static/background.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center;">
-    		<h1>{{ group_name }}</h1>
-  		  	<h3>{{ group_slogan }}</h3>
+        <form action="/addemp" autocomplete="on" method="POST" enctype="multipart/form-data">
+            Employee ID:<br>
+            <input style="height:25px;font-size:14pt; color:grey;" type="number" name="emp_id" autofocus size="40"><br><br>
 
+            First Name:<br>
+            <input style="height:25px;font-size:14pt;color:grey;" type="text" name="first_name"><br><br>
 
-			<form action="/addemp" autocomplete="on" method = "POST" enctype="multipart/form-data">
+            Last Name:<br>
+            <input style="height:25px;font-size:14pt;color:grey;" type="text" name="last_name"><br><br>
 
-			
+            Primary Skills:<br>
+            <input style="height:25px;font-size:14pt;color:grey;" type="text" name="primary_skill"><br><br>
 
-		  		Employee ID:<br> <input style="height:25px;font-size:14pt; color:grey;" type="number" name="emp_id" autofocus size="40"><br><br>
+            Location:<br>
+            <input style="height:25px;font-size:14pt;color:grey;" type="text" name="location"><br><br>
 
-		  		First Name:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="first_name" ><br><br>
-
-		  		Last Name:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="last_name"><br><br>
-
-		  		Primary Skills:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="primary_skill"><br><br>
-
-		  		Location:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="location"><br><br>
-
-		  		<button type="submit" style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">UPDATE DATABASE</button><br><br>
-		  		<button type="submit" formaction="/getemp" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">GET EMPLOYEE INFORMATION</button><br><br>
-
-			</form>
-			<br><br><br><br><br><br><br><br>
-            <a href="/about">About Us</a>
-		</body>
-
-	</font>
-</center>
+            <button type="submit" style="background: grey; height: 45px; width: 200px; color: white;">UPDATE DATABASE</button><br><br>
+            <button type="submit" formaction="/getemp" style="background: grey; height: 45px; width: 200px; color:white;">GET EMPLOYEE INFORMATION</button><br><br>
+        </form>
+        <br><br>
+        <a href="/about">About Us</a>
+    </center>
+</body>
 </html>
