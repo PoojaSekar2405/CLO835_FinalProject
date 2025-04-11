@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: final
+data:
+  DBHOST: mysql-db
+  DBPORT: "3306"
+  DBUSER: root
+  DBPWD: password
+  DATABASE: employees
+  GROUP_NAME: "K8S CloudOps"
+  GROUP_SLOGAN: "We scale what matters!"
+  S3_BUCKET_NAME: "clo835prjctbucket1"  # Replace with your actual S3 bucket name
+  S3_IMAGE_KEY: "edinburg.jpg"  # Replace with the actual S3 image key
