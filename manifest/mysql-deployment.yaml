@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-db
+  namespace: final
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: 117426110282.dkr.ecr.us-east-1.amazonaws.com/mysql-custom:latest  # Custom MySQL image from ECR
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD  # Use MySQL password from the secret
+            - name: MYSQL_DATABASE
+              value: "employees"  # The name of the database
+          ports:
+            - containerPort: 3306  # MySQL default port
+          volumeMounts:
+            - name: mysql-data
+              mountPath: /var/lib/mysql  # Mount point for MySQL data storage
+      volumes:
+        - name: mysql-data
+          persistentVolumeClaim:
+            claimName: mysql-pvc  # PersistentVolumeClaim for MySQL storage
+

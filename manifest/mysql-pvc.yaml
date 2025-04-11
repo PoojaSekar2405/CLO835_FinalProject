@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+  namespace: final  # Make sure this matches the namespace where your app is deployed
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi  # Size of the PersistentVolume claim
+  storageClassName: gp2  # Default StorageClass for Amazon EBS
