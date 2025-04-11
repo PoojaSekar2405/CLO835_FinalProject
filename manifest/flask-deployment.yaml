@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+  namespace: final
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask
+  template:
+    metadata:
+      labels:
+        app: flask
+    spec:
+      containers:
+        - name: flask-app
+          image: 117426110282.dkr.ecr.us-east-1.amazonaws.com/flask-app:latest  # Make sure this is your correct ECR image
+          ports:
+            - containerPort: 81  # Ensure Flask listens on port 81 inside the container
+          envFrom:
+            - configMapRef:
+                name: app-config  # Using your ConfigMap to reference environment variables like GROUP_NAME, SLOGAN, etc.
+            - secretRef:
+                name: aws-credentials  # Using your AWS credentials secret for accessing the S3 bucket
+          env:
+            - name: S3_BUCKET_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: S3_BUCKET_NAME  # S3 Bucket Name from ConfigMap
+            - name: S3_IMAGE_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: S3_IMAGE_KEY  # S3 Image Key from ConfigMap
+            - name: GROUP_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: GROUP_NAME  # Group Name from ConfigMap
+            - name: GROUP_SLOGAN
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: GROUP_SLOGAN  # Slogan from ConfigMap
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: AWS_ACCESS_KEY_ID  # AWS Access Key from the secret
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: AWS_SECRET_ACCESS_KEY  # AWS Secret Access Key from the secret
+            - name: AWS_SESSION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: AWS_SESSION_TOKEN  # AWS Session Token from the secret'
+            - name: DBHOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DBHOST
+            - name: DBPORT
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DBPORT
+            - name: DBUSER
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DBUSER
+            - name: DBPWD
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DBPWD
+            - name: DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DATABASE
+
+
