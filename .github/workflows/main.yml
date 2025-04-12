@@ -38,7 +38,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY_APP: flask-app            # 👈 Replace with your real Flask app ECR repo name
-          IMAGE_TAG: latest
+          IMAGE_TAG: latest   # 👈 Replace with your real Flask app ECR repo name
         run: |
           docker build -f Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY_APP:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY_APP:$IMAGE_TAG
